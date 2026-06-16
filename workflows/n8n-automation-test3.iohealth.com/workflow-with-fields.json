@@ -1,0 +1,161 @@
+{
+  "updatedAt": "2026-06-10T08:33:31.540Z",
+  "createdAt": "2026-06-10T08:15:19.152Z",
+  "id": "cakcX6DohSjZ0Wwp",
+  "name": "Workflow with fields",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4b955f19-535d-4ddb-8d8a-45126f9aeb1d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1dd7f0c-664a-4d9b-bbc5-b4ab6c460d48",
+              "name": "Patient Name ",
+              "value": "Edwin",
+              "type": "string"
+            },
+            {
+              "id": "38513958-1535-40af-8743-82468f3b0e5d",
+              "name": "Age",
+              "value": 24,
+              "type": "number"
+            },
+            {
+              "id": "8514bcad-4415-4467-a95b-993093a3390c",
+              "name": "Cindition",
+              "value": "Hypertension",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "4c6eec02-0498-4a9b-b01e-5c810cfde0e0",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Patient Name : {{ $json[\"Patient Name \"] }} Patient Age :{{ $json.Age }} Patient Condition {{ $json.Cindition }} \n\nso generate a quick summary on this ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "fa057724-9b7b-446a-b030-25caea72eaff",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        288,
+        208
+      ],
+      "id": "9ef5a588-0d84-4d2e-88e3-7ebc1917a54d",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "535mhiaNdaHFFP7U",
+          "name": "Edwin"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "743f975d-218b-4e3c-89f8-dd8d0479c33a",
+  "activeVersionId": null,
+  "versionCounter": 32,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-06-10T08:15:19.154Z",
+      "createdAt": "2026-06-10T08:15:19.154Z",
+      "role": "workflow:owner",
+      "workflowId": "cakcX6DohSjZ0Wwp",
+      "projectId": "DGOxBB0EAKjucbcz",
+      "project": {
+        "updatedAt": "2026-02-19T17:09:04.960Z",
+        "createdAt": "2026-02-19T16:44:33.941Z",
+        "id": "DGOxBB0EAKjucbcz",
+        "name": "Admin n8n <admin@n8n.iohealth.im>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "25a4375d-9192-44f3-8669-208ce86b1a29"
+      }
+    }
+  ],
+  "tags": [],
+  "activeVersion": null
+}
